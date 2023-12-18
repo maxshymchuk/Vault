@@ -1,47 +1,26 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material';
-import { login } from '../../redux';
-import React, { useState } from 'react';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useAppDispatch } from '../../redux/store';
+import { Dialog } from '@mui/material';
+import React, { SyntheticEvent, useState } from 'react';
+import { Tabs, Tab } from '../../components/tabs';
+import SignUpForm from './components/SignUpForm';
+import SignInForm from './components/SignInForm';
 
 export default function AuthDialog() {
-    const dispatch = useAppDispatch();
+    const [selectedTab, setSelectedTab] = useState(0);
 
-    const [isLoading, setLoading] = useState(false);
-
-    const handleClick = async () => {
-        setLoading(true);
-        const result = await dispatch(login({ username: '', password: '' }));
-        if (login.fulfilled.match(result)) {
-            console.log(result.payload);
-            setLoading(false);
-        }
+    const onTabChange = (e: SyntheticEvent, value: number) => {
+        setSelectedTab(value);
     };
 
     return (
         <Dialog open={true}>
-            <DialogTitle>
-                Who are you?
-            </DialogTitle>
-            <DialogContent>
-                <Stack spacing={2} mt={1} width={{ xs: 'auto', sm: '40ch' }}>
-                    <TextField
-                        variant='outlined'
-                        label='Username'
-                    />
-                    <TextField
-                        type='password'
-                        variant='outlined'
-                        autoComplete='current-password'
-                        label='Password'
-                    />
-                </Stack>
-            </DialogContent>
-            <DialogActions>
-                <LoadingButton loading={isLoading} onClick={handleClick}>
-                    Login
-                </LoadingButton>
-            </DialogActions>
+            <Tabs labels={['Sign In', 'Sign Up']} value={selectedTab} onChange={onTabChange}>
+                <Tab value={selectedTab} index={0}>
+                    <SignInForm />
+                </Tab>
+                <Tab value={selectedTab} index={1}>
+                    <SignUpForm />
+                </Tab>
+            </Tabs>
         </Dialog>
     );
 }
