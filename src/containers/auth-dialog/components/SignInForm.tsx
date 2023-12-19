@@ -1,25 +1,21 @@
+import React from 'react';
 import { DialogActions, DialogContent, Stack, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import React, { useState } from 'react';
-import { login } from '../../../redux';
-import { useAppDispatch } from '../../../redux/store';
+import { signIn, RootState, useAppDispatch } from '../../../redux';
+import { useSelector } from 'react-redux';
+import { Status } from '../../../constants/config';
 
 export default function SignInForm() {
     const dispatch = useAppDispatch();
 
-    const [isLoading, setLoading] = useState(false);
+    const { status } = useSelector((state: RootState) => state.auth);
 
-    const handleClick = async () => {
-        setLoading(true);
-        const result = await dispatch(login({ username: '', password: '' }));
-        if (login.fulfilled.match(result)) {
-            console.log(result.payload);
-            setLoading(false);
-        }
+    const handleClick = () => {
+        dispatch(signIn({ username: '', password: '' }));
     };
 
     return (
-        <>
+        <React.Fragment>
             <DialogContent>
                 <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
                     <TextField
@@ -35,10 +31,10 @@ export default function SignInForm() {
                 </Stack>
             </DialogContent>
             <DialogActions>
-                <LoadingButton loading={isLoading} onClick={handleClick}>
+                <LoadingButton loading={status === Status.Loading} onClick={handleClick}>
                     Login
                 </LoadingButton>
             </DialogActions>
-        </>
+        </React.Fragment>
     );
 }

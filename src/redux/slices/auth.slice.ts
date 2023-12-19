@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Auth } from '../types';
-import Endpoints from '../../services/endpoints';
-import { authLogin } from '../../services/auth.service';
+import Endpoints from '../../constants/endpoints';
+import { postSignIn, postSignUp } from '../../services/auth.service';
+import { Status } from '../../constants/config';
 
 type Login = {
     token: string;
@@ -12,13 +13,18 @@ const initialState: Auth = {
         nickname: 'Username'
     },
     token: null,
-    isLogged: false,
+    isLogged: true,
+    status: Status.Idle
 };
 
-const login = createAsyncThunk<Login, { username: string, password: string }>(Endpoints.Post.SignIn, async ({ username, password }) => {
-    const response = await authLogin(username, password);
-    return response as Login;
-    // return (await response.json()) as Login;
+export const signIn = createAsyncThunk<Login, { username: string, password: string }>(Endpoints.Post.SignIn, async ({ username, password }) => {
+    const response = await postSignIn(username, password);
+    return response.data;
+});
+
+export const signUp = createAsyncThunk<Login, { username: string, email: string, password: string }>(Endpoints.Post.SignUp, async ({ username, email, password }) => {
+    const response = await postSignUp(username, email, password);
+    return response.data;
 });
 
 const authSlice = createSlice({
@@ -30,14 +36,35 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(login.fulfilled, (state, { payload }) => {
+        builder.addCase(signIn.pending, (state) => {
+            state.status = Status.Loading;
+        });
+        builder.addCase(signIn.fulfilled, (state, { payload }) => {
             state.token = payload.token;
             state.isLogged = true;
+            state.status = Status.Success;
+        });
+        builder.addCase(signIn.rejected, (state) => {
+            state.token = null;
+            state.isLogged = false;
+            state.status = Status.Fail;
+        });
+        builder.addCase(signUp.pending, (state) => {
+            state.status = Status.Loading;
+        });
+        builder.addCase(signUp.fulfilled, (state, { payload }) => {
+            state.token = payload.token;
+            state.isLogged = true;
+            state.status = Status.Success;
+        });
+        builder.addCase(signUp.rejected, (state) => {
+            state.token = null;
+            state.isLogged = false;
+            state.status = Status.Fail;
         });
     }
 });
 
-export { login };
 export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

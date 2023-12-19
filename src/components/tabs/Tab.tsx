@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box } from '@mui/material';
 import { TabProps } from './types';
 
-export default function Tab(props: TabProps) {
+const Tab = memo((props: TabProps) => {
     const { children, value, index, ...rest } = props;
 
     return (
@@ -14,4 +14,6 @@ export default function Tab(props: TabProps) {
             )}
         </div>
     );
-}
+});
+
+export default Tab;

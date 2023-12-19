@@ -1,14 +1,19 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { AppBar as MUIAppBar, Box, IconButton, Toolbar } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Offset } from './styled';
 import { Search } from '../../components/search';
 import { AppMenu } from '../app-menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, setSearch } from '../../redux';
 
 export default function AppBar() {
+    const dispatch = useDispatch();
+
+    const { search } = useSelector((state: RootState) => state.data);
+
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
-    const [search, setSearch] = useState<string>('');
 
     const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
         setAnchor(e.currentTarget);
@@ -18,8 +23,8 @@ export default function AppBar() {
         setAnchor(null);
     };
 
-    const updateSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.currentTarget.value);
+    const updateSearch = (value: string) => {
+        dispatch(setSearch(value));
     };
 
     return (
@@ -28,7 +33,7 @@ export default function AppBar() {
                 <Toolbar>
                     <AppMenu anchor={anchor} onClose={closeMenu} />
                     <Search value={search} onChange={updateSearch} />
-                    <Box sx={{ flexGrow: 1 }}/>
+                    <Box sx={{ flexGrow: 1 }} />
                     <IconButton color='inherit'>
                         <AddIcon />
                     </IconButton>

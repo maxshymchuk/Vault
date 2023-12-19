@@ -1,4 +1,5 @@
 type VaultRecord = {
+    id: string;
     title: string;
     description?: string;
     hidden?: string;

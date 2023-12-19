@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, Tab as MUITab, Tabs as MUITabs } from '@mui/material';
 import { TabsProps } from './types';
 
-export default function Tabs(props: TabsProps) {
+const Tabs = memo((props: TabsProps) => {
     const { labels, value, onChange, children } = props;
 
     return (
@@ -17,4 +17,6 @@ export default function Tabs(props: TabsProps) {
             {children}
         </>
     );
-}
+});
+
+export default Tabs;

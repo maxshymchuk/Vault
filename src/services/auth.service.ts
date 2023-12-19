@@ -1,14 +1,13 @@
 import { mock } from './api';
-import Endpoints from './endpoints';
-import axios from 'axios';
+import Endpoints from '../constants/endpoints';
+import axios, { AxiosRequestConfig } from 'axios';
 
-export async function authLogin(username: string, password: string) {
-    const response = await axios.post(Endpoints.Post.SignIn, { username, password });
-    if (response.status === 200) {
-        return response.data;
-    } else {
-        return null;
-    }
+export async function postSignIn(username: string, password: string, config?: AxiosRequestConfig) {
+    return await axios.post(Endpoints.Post.SignIn, { username, password }, config);
+}
+
+export async function postSignUp(username: string, email: string, password: string, config?: AxiosRequestConfig) {
+    return await axios.post(Endpoints.Post.SignUp, { username, email, password }, config);
 }
 
 mock.onPost(Endpoints.Post.SignIn).reply(200, { token: 'token' });
