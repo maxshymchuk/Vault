@@ -10,11 +10,9 @@ export default function AppMenu({ anchor, onClose }: Props) {
     return (
        <Menu anchorEl={anchor} open={Boolean(anchor)} onClose={onClose}>
            {selectedRecords.length > 0 && (
-               <React.Fragment>
-                   <MenuItem onClick={() => console.log('Delete Selected')}>Delete Selected</MenuItem>
-                   <Divider />
-               </React.Fragment>
+               <MenuItem onClick={() => console.log('Delete Selected')}>Delete Selected</MenuItem>
            )}
+           {selectedRecords.length > 0 && <Divider />}
            <MenuItem onClick={() => console.log('Settings')}>Settings</MenuItem>
        </Menu>
     );

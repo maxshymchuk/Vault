@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { IconButton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { dispatchNotification } from '../../../utils/helpers';
+import { dispatchNotification, stopPropagation } from '../../../utils/helpers';
 import { MenuList } from '../../menu-list';
 import { VaultRecord } from '../../../types';
 
@@ -30,7 +30,7 @@ const Controls = ({ record }: Props) => {
     };
 
     return (
-        <React.Fragment>
+        <div onClick={stopPropagation}>
             {record.hidden && (
                 <IconButton onClick={copyToClipboard}>
                     <ContentCopyIcon />
@@ -47,7 +47,7 @@ const Controls = ({ record }: Props) => {
                 anchor={anchor}
                 onClose={closeMenu}
             />
-        </React.Fragment>
+        </div>
     );
 };
 
