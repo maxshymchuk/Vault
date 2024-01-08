@@ -7,8 +7,9 @@ import { Search } from '../../components/search';
 import { AppMenu } from '../app-menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, setSearch } from '../../redux';
+import type { Props } from './types';
 
-export default function AppBar() {
+export default function AppBar({ onRecordAdd }: Props) {
     const dispatch = useDispatch();
 
     const { search } = useSelector((state: RootState) => state.data);
@@ -34,7 +35,7 @@ export default function AppBar() {
                     <AppMenu anchor={anchor} onClose={closeMenu} />
                     <Search value={search} onChange={updateSearch} />
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color='inherit'>
+                    <IconButton color='inherit' onClick={onRecordAdd}>
                         <AddIcon />
                     </IconButton>
                     <IconButton color='inherit' onClick={openMenu}>

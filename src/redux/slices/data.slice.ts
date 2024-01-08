@@ -34,6 +34,9 @@ const dataSlice = createSlice({
                     .some(str => str?.includes(payload.toLowerCase()));
             });
         },
+        addRecord: (state, { payload }: PayloadAction<VaultRecord>) => {
+            state.records = [...state.records, payload];
+        },
         selectRecords: (state, { payload }: PayloadAction<Array<VaultRecord> | VaultRecord>) => {
             if (Array.isArray(payload)) {
                 state.selectedRecords = payload;
@@ -64,6 +67,6 @@ const dataSlice = createSlice({
     }
 });
 
-export const { setSearch, selectRecords } = dataSlice.actions;
+export const { setSearch, addRecord, selectRecords } = dataSlice.actions;
 
 export default dataSlice.reducer;

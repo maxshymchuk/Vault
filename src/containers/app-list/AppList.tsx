@@ -7,10 +7,11 @@ import { Status } from '../../constants/config';
 import { Record } from '../../components/record';
 import Selector from './components/Selector';
 import Loader from './components/Loader';
-import { VaultRecord } from '../../types';
 import Empty from './components/Empty';
+import type { Props } from './types';
+import type { VaultRecord } from '../../types';
 
-export default function AppList() {
+export default function AppList({ onRecordClick }: Props) {
     const dispatch = useAppDispatch();
 
     const { records, filteredRecords, selectedRecords, search, status } = useSelector((state: RootState) => state.data);
@@ -47,6 +48,7 @@ export default function AppList() {
                             record={record}
                             isSelected={selectedRecords.map(r => r.id).includes(record.id)}
                             onSelect={handleSelectRecord}
+                            onClick={onRecordClick}
                         />
                     </React.Fragment>
                 ))}
