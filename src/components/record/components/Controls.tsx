@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { IconButton } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { dispatchNotification } from '../../../utils/helpers';
+import { useDispatch } from 'react-redux';
+import { notify } from '../../../redux';
 import { MenuList } from '../../menu-list';
 import { VaultRecord } from '../../../types';
 
@@ -11,13 +12,15 @@ type Props = {
 }
 
 const Controls = ({ record }: Props) => {
+    const dispatch = useDispatch();
+
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
     const copyToClipboard = () => {
         if (!record.hidden) return;
         navigator.clipboard.writeText(record.hidden).then(
-            () => dispatchNotification('info', 'Copied!'),
-            () => dispatchNotification('error', 'Can\'t copy :(')
+            () => dispatch(notify({ type: 'info', message: 'Copied!' })),
+            () => dispatch(notify({ type: 'error', title: 'Error', message: 'Can\'t copy :(' }))
         );
     };
 

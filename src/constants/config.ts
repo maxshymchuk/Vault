@@ -7,8 +7,4 @@ export enum Status {
     Fail = 'fail'
 }
 
-export const Events = {
-    Notification: 'notification',
-};
-
 export default config;

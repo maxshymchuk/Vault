@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './redux';
 import { AuthDialog } from './containers/auth-dialog';
 import { AppList } from './containers/app-list';
-import { AppSnackbar } from './containers/app-snackbar';
+import { AppNotifications } from './containers/app-notifications';
 
 export default function App() {
     const { isLogged } = useSelector((state: RootState) => state.auth);
@@ -13,7 +13,7 @@ export default function App() {
 
     return (
         <React.Fragment>
-            <AppSnackbar />
+            <AppNotifications />
             <AppList />
             <AppBar />
         </React.Fragment>

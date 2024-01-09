@@ -24,7 +24,7 @@ const dataSlice = createSlice({
     name: 'data',
     initialState,
     reducers: {
-        setSearch: (state, { payload }) => {
+        setSearch: (state, { payload }: PayloadAction<string>) => {
             state.search = payload;
             state.filteredRecords = state.records.filter(record => {
                 if (!payload) return record;
