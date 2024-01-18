@@ -1,8 +1,8 @@
-import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import React from 'react';
+import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import Controls from './components/Controls';
-import { Props } from './types';
 import { stopPropagation } from '../../utils/helpers';
+import type { Props } from './types';
 
 const Record = ({ record, isSelected, onSelect, onClick }: Props) => {
     const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './redux';
 import { AuthDialog } from './containers/auth-dialog';
 import { AppList } from './containers/app-list';
-import { AppSnackbar } from './containers/app-snackbar';
+import { AppNotifications } from './containers/app-notifications';
 import type { VaultRecord } from './types';
 import useModal from './utils/hooks/useModal';
 
@@ -39,7 +39,7 @@ export default function App() {
                 onSubmit={handleSubmit}
                 onClose={updateRecord.hide}
             />
-            <AppSnackbar />
+            <AppNotifications />
             <AppList onRecordClick={previewRecord.show} />
             <AppBar onRecordAdd={handleRecordAdd} />
         </React.Fragment>
