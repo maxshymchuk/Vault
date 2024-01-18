@@ -8,9 +8,11 @@ const SimpleDialog = memo(({ isOpen, title, children, actions }: Props) => {
             <DialogTitle>
                 {title}
             </DialogTitle>
-            <DialogContent>
-                {children}
-            </DialogContent>
+            {children && (
+                <DialogContent>
+                    {children}
+                </DialogContent>
+            )}
             {actions && (
                 <DialogActions>
                     {actions}

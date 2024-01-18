@@ -1,1 +1,1 @@
-export { default as FormRecord } from './RecordUpdate';
+export { default as RecordUpdate } from './RecordUpdate';

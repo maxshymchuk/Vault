@@ -15,7 +15,7 @@ const notificationsSlice = createSlice({
     reducers: {
         notify: (state, { payload }: PayloadAction<Omit<Notification, 'id'>>) => {
             const uniqueNotification: Notification = {
-                id: crypto.randomUUID(),
+                id: crypto.randomUUID(), // https only !
                 type: payload.type,
                 title: payload.title,
                 message: payload.message,

@@ -15,7 +15,6 @@ export type Auth = {
 
 export type Data = {
     records: Array<VaultRecord>;
-    filteredRecords: Array<VaultRecord>;
     selectedRecords: Array<VaultRecord>;
     search: string;
     status: Status;

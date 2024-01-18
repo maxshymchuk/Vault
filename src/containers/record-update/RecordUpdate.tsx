@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, FormControl, Stack } from '@mui/material';
 import { SimpleDialog, SimpleInput } from '../../components/simple-dialog';
 import type { Props } from './types';
-import type { VaultRecord } from '../../types';
+import type { VaultRecordPublic } from '../../types';
 
 export default function RecordUpdate({ isOpen, record: externalRecord, onSubmit, onClose }: Props) {
-    const [record, setRecord] = useState<VaultRecord>();
+    const [record, setRecord] = useState<VaultRecordPublic>({ title: '' });
 
     useEffect(() => {
         if (!externalRecord) return;
@@ -13,13 +13,13 @@ export default function RecordUpdate({ isOpen, record: externalRecord, onSubmit,
     }, [externalRecord]);
 
     const handleRecordUpdate = () => {
-        onSubmit(record!);
+        onSubmit(record);
     };
 
     return (
         <SimpleDialog
             isOpen={isOpen}
-            title={record ? 'Update record' : 'New record'}
+            title={externalRecord ? 'Update record' : 'New record'}
             actions={(
                 <React.Fragment>
                     <Button autoFocus onClick={handleRecordUpdate}>

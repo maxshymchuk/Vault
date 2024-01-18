@@ -4,7 +4,7 @@ import Controls from './components/Controls';
 import { stopPropagation } from '../../utils/helpers';
 import type { Props } from './types';
 
-const Record = ({ record, isSelected, onSelect, onClick }: Props) => {
+const Record = ({ record, buttons, isSelected, onSelect, onClick }: Props) => {
     const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         stopPropagation(e);
         onSelect?.(record);
@@ -18,7 +18,7 @@ const Record = ({ record, isSelected, onSelect, onClick }: Props) => {
         <ListItem
             key={record.id}
             onClick={handleClick}
-            secondaryAction={<Controls record={record} />}
+            secondaryAction={<Controls record={record} buttons={buttons} />}
             disablePadding
         >
             <ListItemButton>

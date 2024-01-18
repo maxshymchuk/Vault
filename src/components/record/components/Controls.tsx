@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { IconButton } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useDispatch } from 'react-redux';
 import { notify } from '../../../redux';
 import { stopPropagation } from '../../../utils/helpers';
-import { MenuList } from '../../menu-list';
-import { VaultRecord } from '../../../types';
+import type { VaultRecord } from '../../../types';
+import type { MenuButton } from '../types';
 
 type Props = {
     record: VaultRecord;
+    buttons?: Array<MenuButton>
 }
 
-const Controls = ({ record }: Props) => {
+const Controls = ({ record, buttons }: Props) => {
     const dispatch = useDispatch();
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
@@ -43,14 +44,13 @@ const Controls = ({ record }: Props) => {
             <IconButton onClick={openMenu}>
                 <MoreVertIcon />
             </IconButton>
-            <MenuList
-                buttons={[
-                    { title: 'Edit', action: () => console.log('EDIT') },
-                    { title: 'Delete', action: () => console.log('DELETE') }
-                ]}
-                anchor={anchor}
-                onClose={closeMenu}
-            />
+            <Menu anchorEl={anchor} open={Boolean(anchor)} onClose={closeMenu}>
+                {buttons?.map(button => (
+                    <MenuItem key={button.title} onClick={() => button.action(record)}>
+                        {button.title}
+                    </MenuItem>
+                ))}
+            </Menu>
         </div>
     );
 };

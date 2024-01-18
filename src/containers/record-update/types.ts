@@ -1,10 +1,10 @@
 import React from 'react';
-import type { VaultRecord } from '../../types';
+import type { VaultRecord, VaultRecordPublic } from '../../types';
 
 type Props = {
     isOpen: boolean;
     record?: VaultRecord;
-    onSubmit: (record: VaultRecord) => void;
+    onSubmit: (record: VaultRecordPublic) => void;
     onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

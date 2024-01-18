@@ -8,7 +8,7 @@ type Props<T> = {
 
 type ReturnType<T> = {
     isOpen: boolean;
-    show: (content: T) => void;
+    show: (content?: T) => void;
     hide: () => void;
     content: T | undefined;
 }
