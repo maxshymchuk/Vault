@@ -3,12 +3,14 @@ import { AppBar as MUIAppBar, Box, IconButton, Toolbar } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Offset } from './styled';
-import { Search } from '../../components/search';
+import { Search } from '../../components';
 import { AppMenu } from '../app-menu';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setSearch } from '../../redux';
+import { addRecord, setSearch } from '../../redux';
 import { RecordUpdate } from '../record-update';
 import { useModal } from '../../utils/hooks';
+import type { VaultRecordPublic } from '../../types';
+import type { RootState } from '../../redux';
 
 export default function AppBar() {
     const dispatch = useDispatch();
@@ -17,7 +19,7 @@ export default function AppBar() {
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
-    const updateRecord = useModal();
+    const updateRecordModal = useModal();
 
     const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
         setAnchor(e.currentTarget);
@@ -31,23 +33,28 @@ export default function AppBar() {
         dispatch(setSearch(value));
     };
 
-    const handleRecordAdd = () => {
-        updateRecord.show();
+    const handleRecordModal = () => {
+        updateRecordModal.show();
+    };
+
+    const handleRecordAdd = (record: VaultRecordPublic) => {
+        dispatch(addRecord(record));
+        updateRecordModal.hide();
     };
 
     return (
         <React.Fragment>
             <RecordUpdate
-                isOpen={updateRecord.isOpen}
-                onSubmit={() => console.log('SUBMIT')}
-                onClose={updateRecord.hide}
+                isOpen={updateRecordModal.isOpen}
+                onUpdate={handleRecordAdd}
+                onClose={updateRecordModal.hide}
             />
             <MUIAppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
                 <Toolbar>
                     <AppMenu anchor={anchor} onClose={closeMenu} />
                     <Search value={search} onChange={updateSearch} />
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color='inherit' onClick={handleRecordAdd}>
+                    <IconButton color='inherit' onClick={handleRecordModal}>
                         <AddIcon />
                     </IconButton>
                     <IconButton color='inherit' onClick={openMenu}>

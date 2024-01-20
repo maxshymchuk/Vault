@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { Collapse, Divider, List, Paper } from '@mui/material';
-import { removeRecords, RootState, selectRecords, useAppDispatch } from '../../redux';
+import { removeRecords, RootState, selectRecords, updateRecord, useAppDispatch } from '../../redux';
 import { reload } from '../../redux';
 import { useSelector } from 'react-redux';
 import { Status } from '../../constants/config';
-import { Record } from '../../components/record';
 import Selector from './components/Selector';
 import Loader from './components/Loader';
 import Empty from './components/Empty';
 import { useModal } from '../../utils/hooks';
 import { getFilteredRecords } from '../../redux/slices/data.slice';
-import { SimpleQuestion } from '../../components/simple-question';
+import { Record, SimpleQuestion } from '../../components';
 import { RecordPreview } from '../record-preview';
 import { RecordUpdate } from '../record-update';
-import type { VaultRecord } from '../../types';
+import type { VaultRecord, VaultRecordPublic } from '../../types';
 
 export default function AppList() {
     const dispatch = useAppDispatch();
@@ -21,34 +20,40 @@ export default function AppList() {
     const filteredRecords = useSelector(getFilteredRecords);
     const { selectedRecords, search, status } = useSelector((state: RootState) => state.data);
 
-    const notification = useModal<VaultRecord>();
-    const previewRecord = useModal<VaultRecord>();
-    const updateRecord = useModal<VaultRecord>();
+    const notificationModal = useModal<VaultRecord>();
+    const previewRecordModal = useModal<VaultRecord>();
+    const updateRecordModal = useModal<VaultRecord>();
 
     useEffect(() => {
         dispatch(reload());
     }, [dispatch]);
 
-    const handleSelectAllRecords = () => {
+    const handleRecordModal = (record: VaultRecord) => {
+        updateRecordModal.show(record);
+    };
+
+    const handleNotificationModal = (record: VaultRecord) => {
+        notificationModal.show(record);
+    };
+
+    const handleRecordsSelectAll = () => {
         dispatch(selectRecords(selectedRecords.length === filteredRecords.length ? [] : filteredRecords));
     };
 
-    const handleSelectRecord = (record: VaultRecord) => {
+    const handleRecordSelect = (record: VaultRecord) => {
         dispatch(selectRecords(record));
     };
 
-    const handleEditRecord = (record: VaultRecord) => {
-        updateRecord.show(record);
+    const handleRecordUpdate = (record: VaultRecordPublic) => {
+        if (!updateRecordModal.content) return;
+        dispatch(updateRecord({ id: updateRecordModal.content.id, ...record }));
+        updateRecordModal.hide();
     };
 
-    const handleDeleteRecord = (record: VaultRecord) => {
-        notification.show(record);
-    };
-
-    const removeRecord = () => {
-        if (!notification.content) return;
-        dispatch(removeRecords(notification.content));
-        notification.hide();
+    const handleRecordRemove = () => {
+        if (!notificationModal.content) return;
+        dispatch(removeRecords(notificationModal.content));
+        notificationModal.hide();
     };
 
     if (search && filteredRecords.length === 0) return <Empty />;
@@ -56,30 +61,30 @@ export default function AppList() {
     return (
         <Paper square>
             <SimpleQuestion
-                isOpen={notification.isOpen}
+                isOpen={notificationModal.isOpen}
                 title='Are you sure?'
-                onResolve={removeRecord}
-                onReject={notification.hide}
+                onResolve={handleRecordRemove}
+                onReject={notificationModal.hide}
             >
-                Record &quot;{notification.content?.title}&quot; will be removed
+                Record &quot;{notificationModal.content?.title}&quot; will be removed
             </SimpleQuestion>
             <RecordPreview
-                isOpen={previewRecord.isOpen}
-                record={previewRecord.content}
-                onClose={previewRecord.hide}
+                isOpen={previewRecordModal.isOpen}
+                record={previewRecordModal.content}
+                onClose={previewRecordModal.hide}
             />
             <RecordUpdate
-                isOpen={updateRecord.isOpen}
-                record={updateRecord.content}
-                onSubmit={() => console.log('SUBMIT')}
-                onClose={updateRecord.hide}
+                isOpen={updateRecordModal.isOpen}
+                record={updateRecordModal.content}
+                onUpdate={handleRecordUpdate}
+                onClose={updateRecordModal.hide}
             />
             <Loader isLoading={status === Status.Loading} />
             <Collapse in={selectedRecords.length > 0}>
                 <Selector
                     selected={selectedRecords.length}
                     full={filteredRecords.length}
-                    onClick={handleSelectAllRecords}
+                    onClick={handleRecordsSelectAll}
                 />
             </Collapse>
             <List disablePadding>
@@ -89,12 +94,12 @@ export default function AppList() {
                         <Record
                             record={record}
                             buttons={[
-                                { title: 'Edit', action: handleEditRecord },
-                                { title: 'Delete', action: handleDeleteRecord }
+                                { title: 'Edit', action: handleRecordModal },
+                                { title: 'Delete', action: handleNotificationModal }
                             ]}
                             isSelected={selectedRecords.map(r => r.id).includes(record.id)}
-                            onSelect={handleSelectRecord}
-                            onClick={previewRecord.show}
+                            onSelect={handleRecordSelect}
+                            onClick={previewRecordModal.show}
                         />
                     </React.Fragment>
                 ))}

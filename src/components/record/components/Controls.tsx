@@ -44,7 +44,7 @@ const Controls = ({ record, buttons }: Props) => {
             <IconButton onClick={openMenu}>
                 <MoreVertIcon />
             </IconButton>
-            <Menu anchorEl={anchor} open={Boolean(anchor)} onClose={closeMenu}>
+            <Menu anchorEl={anchor} open={Boolean(anchor)} onClick={closeMenu} onClose={closeMenu}>
                 {buttons?.map(button => (
                     <MenuItem key={button.title} onClick={() => button.action(record)}>
                         {button.title}

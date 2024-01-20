@@ -4,7 +4,7 @@ import type { VaultRecord, VaultRecordPublic } from '../../types';
 type Props = {
     isOpen: boolean;
     record?: VaultRecord;
-    onSubmit: (record: VaultRecordPublic) => void;
+    onUpdate: (record: VaultRecordPublic) => void;
     onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

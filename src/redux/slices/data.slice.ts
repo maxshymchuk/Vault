@@ -62,7 +62,7 @@ const dataSlice = createSlice({
                 }
             ];
         },
-        updateRecord: (state, { payload }: PayloadAction<VaultRecord>) => {
+        updateRecord: (state, { payload }: PayloadAction<Pick<VaultRecord, 'id'> & VaultRecordPublic>) => {
             state.records = state.records.map(record => record.id === payload.id ? {
                 id: record.id,
                 title: payload.title,
