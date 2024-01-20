@@ -61,7 +61,7 @@ export default function AppList() {
     return (
         <Paper square>
             <SimpleQuestion
-                isOpen={notificationModal.isOpen}
+                open={notificationModal.isOpen}
                 title='Are you sure?'
                 onResolve={handleRecordRemove}
                 onReject={notificationModal.hide}
@@ -69,12 +69,12 @@ export default function AppList() {
                 Record &quot;{notificationModal.content?.title}&quot; will be removed
             </SimpleQuestion>
             <RecordPreview
-                isOpen={previewRecordModal.isOpen}
+                open={previewRecordModal.isOpen}
                 record={previewRecordModal.content}
                 onClose={previewRecordModal.hide}
             />
             <RecordUpdate
-                isOpen={updateRecordModal.isOpen}
+                open={updateRecordModal.isOpen}
                 record={updateRecordModal.content}
                 onUpdate={handleRecordUpdate}
                 onClose={updateRecordModal.hide}

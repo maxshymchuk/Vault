@@ -1,26 +1,32 @@
 import React, { memo } from 'react';
-import { Button, FormControl, Stack } from '@mui/material';
+import { List, ListItem, ListItemText } from '@mui/material';
 import { SimpleDialog } from '../../components/simple-dialog';
+import Controls from './components/Controls';
+import ListItemWithDivider from './components/ListItemWithDivider';
 import type { Props } from './types';
 
-const RecordPreview = memo(({ isOpen, record, onClose }: Props) => {
+const RecordPreview = memo(({ open, record, onClose }: Props) => {
     if (!record) return null;
 
     return (
         <SimpleDialog
-            isOpen={isOpen}
+            open={open}
             title={record.title}
-            actions={(
-                <Button autoFocus onClick={onClose}>
-                    Close
-                </Button>
-            )}
+            actions={<Controls record={record} onClose={onClose} />}
+            fullWidth
         >
-            <Stack spacing={2}>
-                <FormControl>
-                    Preview
-                </FormControl>
-            </Stack>
+            <List disablePadding>
+                {record.title && (
+                    <ListItem disableGutters>
+                        <ListItemText primary='Title' secondary={record.title} />
+                    </ListItem>
+                )}
+                {record.description && (
+                    <ListItemWithDivider>
+                        <ListItemText primary='Description' secondary={record.description} />
+                    </ListItemWithDivider>
+                )}
+            </List>
         </SimpleDialog>
     );
 });

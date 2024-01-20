@@ -7,7 +7,7 @@ import HiddenInput from './components/HiddenInput';
 import { VaultRecordPublic } from '../../types';
 import Controls from './components/Controls';
 
-export default function RecordUpdate({ isOpen, record: externalRecord, onUpdate, onClose }: Props) {
+export default function RecordUpdate({ open, record: externalRecord, onUpdate, onClose }: Props) {
     const { control, handleSubmit, reset, formState: { errors } } = useForm<VaultRecordPublic>({
         defaultValues: {
             title: '',
@@ -22,14 +22,14 @@ export default function RecordUpdate({ isOpen, record: externalRecord, onUpdate,
     });
 
     useEffect(() => {
-        if (isOpen) reset();
-    }, [isOpen, reset]);
+        if (open) reset();
+    }, [open, reset]);
 
     const onSubmit = handleSubmit(data => onUpdate(data));
 
     return (
         <SimpleDialog
-            isOpen={isOpen}
+            open={open}
             title={externalRecord ? 'Update record' : 'New record'}
             actions={<Controls onClose={onClose} />}
         >

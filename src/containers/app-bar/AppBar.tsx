@@ -45,7 +45,7 @@ export default function AppBar() {
     return (
         <React.Fragment>
             <RecordUpdate
-                isOpen={updateRecordModal.isOpen}
+                open={updateRecordModal.isOpen}
                 onUpdate={handleRecordAdd}
                 onClose={updateRecordModal.hide}
             />

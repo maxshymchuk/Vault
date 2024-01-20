@@ -2,7 +2,7 @@ import React from 'react';
 import type { VaultRecord } from '../../types';
 
 type Props = {
-    isOpen: boolean;
+    open: boolean;
     record?: VaultRecord;
     onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
