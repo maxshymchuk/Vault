@@ -8,13 +8,15 @@ import { VaultRecordPublic } from '../../types';
 import Controls from './components/Controls';
 
 export default function RecordUpdate({ open, record: externalRecord, onUpdate, onClose }: Props) {
+    const isUpdate = !!externalRecord;
+
     const { control, handleSubmit, reset, formState: { errors } } = useForm<VaultRecordPublic>({
         defaultValues: {
             title: '',
             description: '',
             hidden: '',
         },
-        values: externalRecord ? {
+        values: isUpdate ? {
             title: externalRecord.title,
             description: externalRecord.description ?? '',
             hidden: externalRecord.hidden ?? '',
@@ -30,8 +32,8 @@ export default function RecordUpdate({ open, record: externalRecord, onUpdate, o
     return (
         <SimpleDialog
             open={open}
-            title={externalRecord ? 'Update record' : 'New record'}
-            actions={<Controls onClose={onClose} />}
+            title={isUpdate ? 'Update record' : 'New record'}
+            actions={<Controls isUpdate={isUpdate} onClose={onClose} />}
         >
             <form id='update-record-form' onSubmit={onSubmit}>
                 <Stack spacing={0} useFlexGap>

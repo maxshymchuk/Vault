@@ -3,13 +3,14 @@ import { Button } from '@mui/material';
 import type { MouseEvent } from 'react';
 
 type Props = {
+    isUpdate?: boolean;
     onClose: (e: MouseEvent) => void;
 }
 
-const Controls = memo(({ onClose }: Props) => (
+const Controls = memo(({ isUpdate, onClose }: Props) => (
     <React.Fragment>
         <Button type='submit' form='update-record-form'>
-            Add
+            {isUpdate ? 'Update' : 'Add'}
         </Button>
         <Button onClick={onClose}>
             Close
