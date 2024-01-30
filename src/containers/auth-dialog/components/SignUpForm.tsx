@@ -1,9 +1,11 @@
 import React from 'react';
-import { DialogActions, DialogContent, Stack, TextField } from '@mui/material';
+import { DialogActions, DialogContent, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { SimpleInput } from '../../../components';
 import { signUp, RootState, useAppDispatch } from '../../../redux';
 import { useSelector } from 'react-redux';
 import { Status } from '../../../constants/config';
+import TEMP_InProgress from './TEMP_InProgress';
 
 export default function SignUpForm() {
     const dispatch = useAppDispatch();
@@ -16,27 +18,23 @@ export default function SignUpForm() {
 
     return (
         <React.Fragment>
-            <DialogContent>
+            {/* Temp styling while in progress */}
+            <DialogContent sx={{ position: 'relative' }}>
                 <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
-                    <TextField
-                        variant='outlined'
-                        label='Username or Email'
-                    />
-                    <TextField
-                        variant='outlined'
-                        label='Email'
-                    />
-                    <TextField
+                    <SimpleInput label='Username or Email' disabled />
+                    <SimpleInput label='Email' disabled />
+                    <SimpleInput
                         type='password'
-                        variant='outlined'
-                        autoComplete='current-password'
                         label='Password'
+                        autoComplete='current-password'
+                        disabled
                     />
                 </Stack>
+                <TEMP_InProgress />
             </DialogContent>
             <DialogActions>
-                <LoadingButton loading={status === Status.Loading} onClick={handleClick}>
-                    Login
+                <LoadingButton loading={status === Status.Loading} onClick={handleClick} disabled>
+                    Sign Up
                 </LoadingButton>
             </DialogActions>
         </React.Fragment>

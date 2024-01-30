@@ -4,9 +4,11 @@ import type { Props } from './types';
 
 const SimpleDialog = memo(({ title, children, actions, titleProps, contentProps, actionsProps, ...props }: Props) => (
     <Dialog {...props}>
-        <DialogTitle {...titleProps}>
-            {title}
-        </DialogTitle>
+        {title && (
+            <DialogTitle {...titleProps}>
+                {title}
+            </DialogTitle>
+        )}
         {children && (
             <DialogContent {...contentProps}>
                 {children}

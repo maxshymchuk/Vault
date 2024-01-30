@@ -1,8 +1,8 @@
-import { Dialog } from '@mui/material';
+import { Box, Dialog, Tab, Tabs } from '@mui/material';
 import React, { SyntheticEvent, useState } from 'react';
-import { Tabs, Tab } from '../../components/tabs';
 import SignUpForm from './components/SignUpForm';
 import SignInForm from './components/SignInForm';
+import TabPanel from './components/TabPanel';
 
 export default function AuthDialog() {
     const [selectedTab, setSelectedTab] = useState(0);
@@ -13,14 +13,18 @@ export default function AuthDialog() {
 
     return (
         <Dialog open={true}>
-            <Tabs labels={['Sign In', 'Sign Up']} value={selectedTab} onChange={onTabChange}>
-                <Tab value={selectedTab} index={0}>
-                    <SignInForm />
-                </Tab>
-                <Tab value={selectedTab} index={1}>
-                    <SignUpForm />
-                </Tab>
-            </Tabs>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={selectedTab} onChange={onTabChange} variant='fullWidth'>
+                    <Tab label='Sign In' />
+                    <Tab label='Sign Up' />
+                </Tabs>
+            </Box>
+            <TabPanel index={0} value={selectedTab}>
+                <SignInForm />
+            </TabPanel>
+            <TabPanel index={1} value={selectedTab}>
+                <SignUpForm />
+            </TabPanel>
         </Dialog>
     );
 }

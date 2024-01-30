@@ -13,7 +13,7 @@ const initialState: Auth = {
         nickname: 'Username'
     },
     token: null,
-    isLogged: true,
+    isLogged: false,
     status: Status.Idle
 };
 
