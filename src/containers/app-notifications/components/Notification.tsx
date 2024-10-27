@@ -1,11 +1,11 @@
 import { Alert, AlertTitle, Grow } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import type { Notification as NotificationType } from '../../../redux/types';
+import type { Notification as NotificationType } from '../../../redux';
 
 type Props = {
     notification: NotificationType;
     timeout?: number;
-    onClose: (id: string) => void;
+    onClose: (id: number) => void;
 }
 
 export default function Notification({ notification, timeout = 200, onClose }: Props) {

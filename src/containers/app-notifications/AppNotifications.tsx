@@ -10,7 +10,7 @@ const AppNotifications = () => {
 
     const { stack } = useSelector((state: RootState) => state.notifications);
 
-    const closeNotificationById = (id: string) => dispatch(close(id));
+    const closeNotificationById = (id: number) => dispatch(close(id));
 
     return (
         <StyledStack spacing={1}>

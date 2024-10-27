@@ -1,38 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DialogActions, DialogContent, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { SimpleInput } from '../../../components';
-import { signIn, RootState, useAppDispatch } from '../../../redux';
-import { useSelector } from 'react-redux';
-import { Status } from '../../../constants/config';
-import TEMP_InProgress from './TEMP_InProgress';
+import { Controller, useForm } from 'react-hook-form';
+import { useSignInMutation } from '../../../services/auth.service';
 
 export default function SignInForm() {
-    const dispatch = useAppDispatch();
+    const [signIn, { isLoading }] = useSignInMutation()
 
-    const { status } = useSelector((state: RootState) => state.auth);
+    const { control, handleSubmit, formState: { errors } } = useForm<{ email: string; password: string }>({
+        defaultValues: {
+            email: '',
+            password: '',
+        }
+    });
 
-    const handleClick = () => {
-        dispatch(signIn({ username: '', password: '' }));
-    };
+    const onSubmit = handleSubmit(data => signIn(data));
 
     return (
         <React.Fragment>
-            {/* Temp styling while in progress */}
-            <DialogContent sx={{ position: 'relative' }}>
-                <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
-                    <SimpleInput label='Username or Email' disabled />
-                    <SimpleInput
-                        type='password'
-                        label='Password'
-                        autoComplete='current-password'
-                        disabled
-                    />
-                </Stack>
-                <TEMP_InProgress />
+            <DialogContent>
+                <form id='sign-in-form' onSubmit={onSubmit}>
+                    <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
+                        <Controller
+                            name='email'
+                            control={control}
+                            rules={{ required: 'Cannot be empty' }}
+                            render={({ field }) => (
+                                <SimpleInput 
+                                    label='Email' 
+                                    helperText={errors.email?.message}
+                                    error={!!errors.email}
+                                    {...field}
+                                />
+                            )}
+                        />
+                        <Controller
+                            name='password'
+                            control={control}
+                            rules={{ required: 'Cannot be empty' }}
+                            render={({ field }) => (
+                                <SimpleInput 
+                                    label='Password' 
+                                    helperText={errors.password?.message}
+                                    error={!!errors.password}
+                                    hidden
+                                    {...field}
+                                />
+                            )}
+                        />
+                    </Stack>
+                </form>
             </DialogContent>
             <DialogActions>
-                <LoadingButton loading={status === Status.Loading} onClick={handleClick}>
+                <LoadingButton type='submit' form='sign-in-form' loading={isLoading}>
                     Sign In
                 </LoadingButton>
             </DialogActions>

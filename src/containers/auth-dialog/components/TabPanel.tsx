@@ -9,8 +9,8 @@ type TabPanelProps = {
 }
 
 const TabPanel = memo(({ children, value, index, ...rest }: TabPanelProps) => (
-    <div role='tabpanel' hidden={value !== index}{...rest}>
-        {value === index && children}
+    <div role='tabpanel' hidden={value !== index} {...rest}>
+        {children}
     </div>
 ));
 

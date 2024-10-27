@@ -1,4 +1,6 @@
-const config = {};
+const config = {
+    baseUrl: 'http://10.0.14.159:3000'
+};
 
 export enum Status {
     Idle = 'idle',

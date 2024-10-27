@@ -1,16 +1,21 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/auth.slice';
-import dataReducer from './slices/data.slice';
-import notificationsReducer from './slices/notifications.slice';
+import authSlice from './slices/auth.slice';
+import notificationsSlice from './slices/notifications.slice';
 import { useDispatch } from 'react-redux';
+import { authApi } from '../services/auth.service';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import { errorMiddleware } from './middlewares/error.middleware';
 
 const store = configureStore({
     reducer: {
-        auth: authReducer,
-        data: dataReducer,
-        notifications: notificationsReducer
+        auth: authSlice.reducer,
+        notifications: notificationsSlice.reducer,
+        [authApi.reducerPath]: authApi.reducer,
     },
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(errorMiddleware, authApi.middleware),
 });
+
+setupListeners(store.dispatch)
 
 export default store;
 export const useAppDispatch: () => AppDispatch = useDispatch;

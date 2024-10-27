@@ -2,11 +2,17 @@ import { createAsyncThunk, createSlice, createSelector, PayloadAction } from '@r
 import Endpoints from '../../constants/endpoints';
 import { getRecords } from '../../services/data.service';
 import { Status } from '../../constants/config';
-import { Data } from '../types';
 import { RootState } from '../store';
 import { VaultRecord, VaultRecordPublic } from '../../types';
 
-const initialState: Data = {
+type DataState = {
+    records: Array<VaultRecord>;
+    selectedRecords: Array<VaultRecord>;
+    search: string;
+    status: Status;
+}
+
+const initialState: DataState = {
     records: [],
     selectedRecords: [],
     search: '',
@@ -104,6 +110,6 @@ const dataSlice = createSlice({
     }
 });
 
+export default dataSlice;
 export const { setSearch, addRecord, updateRecord, removeRecords, selectRecords } = dataSlice.actions;
-
-export default dataSlice.reducer;
+export type { DataState };
