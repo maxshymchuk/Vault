@@ -1,0 +1,18 @@
+{
+    "include": ["src/**/*", "typing"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
+        // "baseUrl": ".",
+        "strict": true,
+        "sourceMap": true,
+        "declaration": true,
+        "allowJs": false,
+        "esModuleInterop": true,
+        "types": ["./typing"]
+        // "allowSyntheticDefaultImports": true,
+    }
+}
