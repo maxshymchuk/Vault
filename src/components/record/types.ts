@@ -1,5 +1,3 @@
-import { VaultRecord } from '../../types';
-
 type MenuButton = {
     title: string;
     action: (record: VaultRecord) => void;

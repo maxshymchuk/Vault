@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { Stack } from '@mui/material';
-import { SimpleDialog, SimpleInput } from '../../components';
+import { InputHidden, SimpleDialog, SimpleInput } from '../../components';
 import { Controller, useForm } from 'react-hook-form';
 import type { Props } from './types';
-import HiddenInput from './components/HiddenInput';
-import { VaultRecordPublic } from '../../types';
 import Controls from './components/Controls';
 
-export default function RecordUpdate({ open, record: externalRecord, onUpdate, onClose }: Props) {
+export default function RecordUpdate({ open, record: externalRecord, isLoading = false, onUpdate, onClose }: Props) {
     const isUpdate = !!externalRecord;
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm<VaultRecordPublic>({
+    const { control, handleSubmit, reset, formState: { errors } } = useForm<VaultRecordPending>({
         defaultValues: {
             title: '',
             description: '',
@@ -27,13 +25,13 @@ export default function RecordUpdate({ open, record: externalRecord, onUpdate, o
         if (open) reset();
     }, [open, reset]);
 
-    const onSubmit = handleSubmit(data => onUpdate(data));
+    const onSubmit = handleSubmit(data => onUpdate(isUpdate ? ({ ...externalRecord, ...data }) : data));
 
     return (
         <SimpleDialog
             open={open}
             title={isUpdate ? 'Update record' : 'New record'}
-            actions={<Controls isUpdate={isUpdate} onClose={onClose} />}
+            actions={<Controls isUpdate={isUpdate} isLoading={isLoading} onClose={onClose} />}
         >
             <form id='update-record-form' onSubmit={onSubmit}>
                 <Stack spacing={0} useFlexGap>
@@ -61,7 +59,7 @@ export default function RecordUpdate({ open, record: externalRecord, onUpdate, o
                         name='hidden'
                         control={control}
                         render={({ field }) => (
-                            <HiddenInput label='Hidden' {...field} />
+                            <InputHidden label='Hidden' {...field} />
                         )}
                     />
                 </Stack>

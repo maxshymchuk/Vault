@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import Controls from './components/Controls';
-import { stopPropagation } from '../../utils/helpers';
+import { stopPropagation } from '../../utils';
 import type { Props } from './types';
 
 const Record = ({ record, buttons, isSelected, onSelect, onClick }: Props) => {

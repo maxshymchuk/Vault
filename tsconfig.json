@@ -1,29 +1,20 @@
 {
+    "include": ["src/**/*", "typing"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "outDir": "./dist/",
-        "module": "esnext",
         "target": "esnext",
-        "lib": [
-            "dom",
-            "esnext"
-        ],
-        "jsx": "preserve",
+        "module": "esnext",
+        "jsx": "react",
         "moduleResolution": "node",
-        "baseUrl": "./",
+        // "baseUrl": "./",
         "isolatedModules": true,
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "strictFunctionTypes": false,
-        "skipLibCheck": true,
-        "sourceMap": true
-    },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "public"
-    ]
+        "sourceMap": true,
+        "declaration": true,
+        "allowJs": false,
+        "esModuleInterop": true,
+        "types": ["./typing"]
+        // "allowSyntheticDefaultImports": true,
+    }
 }

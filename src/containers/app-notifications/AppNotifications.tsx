@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { close } from '../../redux';
+import { useSelector } from 'react-redux';
+import { close, useAppDispatch } from '../../redux';
 import { StyledStack } from './styled';
 import Notification from './components/Notification';
 import type { RootState } from '../../redux';
 
 const AppNotifications = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const { stack } = useSelector((state: RootState) => state.notifications);
 

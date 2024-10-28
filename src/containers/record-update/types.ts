@@ -1,11 +1,11 @@
-import React from 'react';
-import type { VaultRecord, VaultRecordPublic } from '../../types';
+import type { MouseEvent } from 'react';
 
 type Props = {
     open: boolean;
     record?: VaultRecord;
-    onUpdate: (record: VaultRecordPublic) => void;
-    onClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    isLoading?: boolean;
+    onUpdate: (record: VaultRecord | VaultRecordPending) => void;
+    onClose: (e: MouseEvent) => void;
 }
 
 export type { Props };

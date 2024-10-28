@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { notify } from '../../redux';
+import { notify, useAppDispatch } from '../../redux';
 
 export default function useCopy(text?: string): () => void {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return useCallback(() => {
         if (!text) return;

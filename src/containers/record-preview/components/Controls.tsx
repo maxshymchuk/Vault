@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import type { MouseEvent } from 'react';
-import type { VaultRecord } from '../../../types';
 import { useCopy } from '../../../utils/hooks';
 
 type Props = {

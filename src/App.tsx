@@ -2,38 +2,37 @@ import React, { useEffect } from 'react';
 import { AppBar } from './containers/app-bar';
 import { AuthDialog } from './containers/auth-dialog';
 import { AppList } from './containers/app-list';
-import { AppNotifications } from './containers/app-notifications';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, setAuthenticated } from './redux';
-import { useCheckAuthQuery } from './services/auth.service';
+import { useSelector } from 'react-redux';
+import { RootState, setAuthenticated, useAppDispatch } from './redux';
+import { getLocalStorage } from './utils';
 
 export default function App() {
-    const dispatch = useDispatch();
-    
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const dispatch = useAppDispatch();
 
-    const { data, isError } = useCheckAuthQuery(); 
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
+    // temporal solution
     useEffect(() => {
-        if (data) {
-            dispatch(setAuthenticated(true));
-        } else if (isError) {
-            dispatch(setAuthenticated(false));
-        }
-    }, [data, isError, dispatch]);
+        const vault = getLocalStorage();
+        dispatch(setAuthenticated(vault?.token));
+    }, []);
+
+    // for prod to check cookie
+    // const { data, isError } = useCheckAuthQuery();
+    // useEffect(() => {
+    //     if (data) {
+    //         dispatch(setAuthenticated(true));
+    //     } else if (isError) {
+    //         dispatch(setAuthenticated(false));
+    //     }
+    // }, [data, isError, dispatch]);
+
+    if (!isAuthenticated) return <AuthDialog />;
 
     return (
         <React.Fragment>
-            <AppNotifications />
-            {isAuthenticated ? (
-                <>
-                    Logged 
-                    {/* <AppList /> */}
-                    {/* <AppBar /> */}
-                </>
-            ) : (
-                <AuthDialog />
-            )}
+            <AppList />
+            <AppBar />
         </React.Fragment>
     );
 }

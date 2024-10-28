@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar as MUIAppBar, Box, IconButton, Toolbar } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Offset } from './styled';
 import { Search } from '../../components';
 import { AppMenu } from '../app-menu';
-import { useDispatch, useSelector } from 'react-redux';
-import { addRecord, setSearch } from '../../redux';
+import { useSelector } from 'react-redux';
+import { setSearch, useAppDispatch } from '../../redux';
 import { RecordUpdate } from '../record-update';
 import { useModal } from '../../utils/hooks';
-import type { VaultRecordPublic } from '../../types';
 import type { RootState } from '../../redux';
+import { useAddMutation } from '../../services/record.service';
 
 export default function AppBar() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const { search } = useSelector((state: RootState) => state.data);
+    const [addRecord, { isLoading }] = useAddMutation()
+
+    const { search } = useSelector((state: RootState) => state.records);
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
@@ -33,19 +35,15 @@ export default function AppBar() {
         dispatch(setSearch(value));
     };
 
-    const handleRecordModal = () => {
-        updateRecordModal.show();
-    };
-
-    const handleRecordAdd = (record: VaultRecordPublic) => {
-        dispatch(addRecord(record));
-        updateRecordModal.hide();
+    const handleRecordAdd = (record: VaultRecordPending) => {
+        addRecord(record).unwrap().then(() => updateRecordModal.hide());
     };
 
     return (
         <React.Fragment>
             <RecordUpdate
                 open={updateRecordModal.isOpen}
+                isLoading={isLoading}
                 onUpdate={handleRecordAdd}
                 onClose={updateRecordModal.hide}
             />
@@ -54,7 +52,7 @@ export default function AppBar() {
                     <AppMenu anchor={anchor} onClose={closeMenu} />
                     <Search value={search} onChange={updateSearch} />
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color='inherit' onClick={handleRecordModal}>
+                    <IconButton color='inherit' onClick={updateRecordModal.show}>
                         <AddIcon />
                     </IconButton>
                     <IconButton color='inherit' onClick={openMenu}>

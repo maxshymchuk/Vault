@@ -1,17 +1,19 @@
 import React, { memo } from 'react';
 import { Button } from '@mui/material';
 import type { MouseEvent } from 'react';
+import { LoadingButton } from '@mui/lab';
 
 type Props = {
     isUpdate?: boolean;
+    isLoading?: boolean;
     onClose: (e: MouseEvent) => void;
 }
 
-const Controls = memo(({ isUpdate, onClose }: Props) => (
+const Controls = memo(({ isUpdate, isLoading = false, onClose }: Props) => (
     <React.Fragment>
-        <Button type='submit' form='update-record-form'>
+        <LoadingButton type='submit' form='update-record-form' loading={isLoading}>
             {isUpdate ? 'Update' : 'Add'}
-        </Button>
+        </LoadingButton>
         <Button onClick={onClose}>
             Close
         </Button>

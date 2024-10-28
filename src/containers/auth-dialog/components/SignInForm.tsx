@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DialogActions, DialogContent, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { SimpleInput } from '../../../components';
+import { InputHidden, SimpleInput } from '../../../components';
 import { Controller, useForm } from 'react-hook-form';
 import { useSignInMutation } from '../../../services/auth.service';
 
@@ -40,11 +40,10 @@ export default function SignInForm() {
                             control={control}
                             rules={{ required: 'Cannot be empty' }}
                             render={({ field }) => (
-                                <SimpleInput 
+                                <InputHidden 
                                     label='Password' 
                                     helperText={errors.password?.message}
                                     error={!!errors.password}
-                                    hidden
                                     {...field}
                                 />
                             )}

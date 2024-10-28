@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { setLocalStorage } from '../../utils';
 
 type AuthState = {
     isAuthenticated: boolean;
@@ -12,8 +13,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setAuthenticated(state, { payload }: PayloadAction<boolean>) {
-            state.isAuthenticated = payload;
+        setAuthenticated(state, { payload }: PayloadAction<string | undefined>) {
+            setLocalStorage('token', payload);
+            state.isAuthenticated = !!payload;
         },
     },
 });

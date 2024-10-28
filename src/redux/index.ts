@@ -7,4 +7,5 @@ export type { Notification } from './slices/notifications.slice';
 export { setAuthenticated } from './slices/auth.slice';
 export type { AuthState } from './slices/auth.slice';
 
-export { reload, setSearch, addRecord, updateRecord, removeRecords, selectRecords } from './slices/data.slice';
+export { setSearch, selectRecords, updateRecords, reset } from './slices/records.slice';
+export type { RecordsState } from './slices/records.slice';

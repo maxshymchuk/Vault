@@ -1,17 +1,19 @@
 import React, { memo } from 'react';
 import { Button } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 export type Props = {
+    isLoading?: boolean;
     onResolve?: () => void;
     onReject?: () => void;
 }
 
-const Controls = memo(({ onResolve, onReject }: Props) => (
+const Controls = memo(({ isLoading, onResolve, onReject }: Props) => (
     <React.Fragment>
         {onResolve && (
-            <Button onClick={onResolve}>
+            <LoadingButton onClick={onResolve} loading={isLoading}>
                 Yes
-            </Button>
+            </LoadingButton>
         )}
         {onReject && (
             <Button onClick={onReject}>

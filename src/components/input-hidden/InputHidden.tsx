@@ -1,14 +1,10 @@
 import React, { forwardRef, useState } from 'react';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { SimpleInput } from '../../../components';
+import { SimpleInput } from '../simple-input';
+import type { Props } from './types';
 
-type Props = {
-    withViewToggle?: boolean;
-    [key: string]: unknown;
-}
-
-const HiddenInput = forwardRef<HTMLDivElement, Props>(({ withViewToggle = true, ...props }, ref) => {
+const InputHidden = forwardRef<HTMLDivElement, Props>(({ withViewToggle = true, ...props }, ref) => {
     const [visible, setVisible] = useState(false);
 
     const toggle = () => setVisible(isVisible => !isVisible);
@@ -32,4 +28,4 @@ const HiddenInput = forwardRef<HTMLDivElement, Props>(({ withViewToggle = true, 
     );
 });
 
-export default HiddenInput;
+export default InputHidden;

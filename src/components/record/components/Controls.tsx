@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { stopPropagation } from '../../../utils/helpers';
+import { stopPropagation } from '../../../utils';
 import { useCopy } from '../../../utils/hooks';
-import type { VaultRecord } from '../../../types';
 import type { MenuButton } from '../types';
 
 type Props = {
