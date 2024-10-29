@@ -6,13 +6,12 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
-        // "baseUrl": ".",
-        "strict": true,
+        // "strict": true,
         "sourceMap": true,
         "declaration": true,
         "allowJs": false,
         "esModuleInterop": true,
+        "useUnknownInCatchVariables": false,
         "types": ["./typing"]
-        // "allowSyntheticDefaultImports": true,
     }
 }

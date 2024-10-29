@@ -1,6 +1,6 @@
 import { dbs } from '../config/database';
-import { v4 as uuidv4 } from 'uuid';
 import { promisify } from '../utils';
+import { randomUUID } from 'node:crypto';
 
 type WithToken<T = {}> = T & {
     token?: string;
@@ -22,7 +22,7 @@ type UpdateVaultRecord = {
 }
 
 function createRecord(record: CreateVaultRecord): VaultRecord {
-    return { ...record, id: uuidv4(), createdAt: Date.now(), updatedAt: Date.now() };
+    return { ...record, id: randomUUID(), createdAt: Date.now(), updatedAt: Date.now() };
 }
 
 function updateRecord(record: UpdateVaultRecord): VaultRecord {

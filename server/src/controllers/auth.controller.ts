@@ -10,10 +10,10 @@ const signIn = async (req: Request, res: Response) => {
         const user = await authService.signIn(req.body);
         // for prod with HTTPS
         // res.cookie('token', user.token, {
-        //     httpOnly: true,     
-        //     secure: false,       
-        //     sameSite: 'lax', 
-        //     maxAge: 3600 * 1000 
+        //     httpOnly: true,
+        //     secure: false,
+        //     sameSite: 'lax',
+        //     maxAge: 3600 * 1000
         // });
         // res.status(200).json('Successful sign in');
         res.status(200).json({ token: user.token });
@@ -27,10 +27,10 @@ const signUp = async (req: Request, res: Response) => {
         const token = await authService.signUp(req.body);
         // for prod with HTTPS
         // res.cookie('token', token, {
-        //     httpOnly: true,     
-        //     secure: false,       
-        //     sameSite: 'lax', 
-        //     maxAge: 3600 * 1000 
+        //     httpOnly: true,
+        //     secure: false,
+        //     sameSite: 'lax',
+        //     maxAge: 3600 * 1000
         // });
         // res.status(200).json('Successful sign up');
         res.status(200).json({ token });

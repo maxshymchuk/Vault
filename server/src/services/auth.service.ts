@@ -1,14 +1,14 @@
 import { dbs } from '../config/database';
-import { v4 as uuidv4 } from 'uuid';
 import { base64, promisify } from '../utils';
+import { randomUUID } from 'node:crypto';
 
 function createUser({ email, password }: Creds): VaultUser {
     return {
-        id: uuidv4(),
+        id: randomUUID(),
         email,
         password,
         createdAt: Date.now(),
-        token: base64.encode(uuidv4())
+        token: base64.encode(randomUUID())
     }
 }
 
@@ -17,7 +17,7 @@ async function signUp(creds: Creds): Promise<string> {
     const emails = dbs.users.open('users').get().map(user => user.email);
     if (emails.includes(user.email)) throw new Error('This email already signed up');
     dbs.users.open('users').add(user);
-    return promisify(() => user.token);
+    return promisify(() => user.token as string);
 }
 
 async function signIn({ email, password }: Creds): Promise<VaultUser> {

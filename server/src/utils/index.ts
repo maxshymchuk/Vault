@@ -9,7 +9,7 @@ const base64 = {
     encode: (b: string) => Buffer.from(b).toString('base64')
 };
 
-function promisify<T>(func: () => T, delay = +config.dev.delay): Promise<T> {
+function promisify<T>(func: () => T, delay = config.apiDelay): Promise<T> {
     return new Promise<T>((resolve, reject) => {
         setTimeout(() => {
             try {
