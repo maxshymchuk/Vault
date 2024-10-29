@@ -18,4 +18,4 @@ function setLocalStorage(key: keyof LocalStorage, value?: string | null): void {
     localStorage.setItem(config.localStorageKey, JSON.stringify({ ...vault, [key]: value }));
 }
 
-export { isVaultRecord,stopPropagation, getLocalStorage, setLocalStorage };
+export { isVaultRecord, stopPropagation, getLocalStorage, setLocalStorage };

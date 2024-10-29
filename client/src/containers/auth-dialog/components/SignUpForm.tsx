@@ -3,7 +3,7 @@ import { DialogActions, DialogContent, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { InputHidden, SimpleInput } from '../../../components';
 import { useSignUpMutation } from '../../../services/auth.service';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 export default function SignUpForm() {
     const [signUp, { isLoading }] = useSignUpMutation()
@@ -15,44 +15,42 @@ export default function SignUpForm() {
         }
     });
 
-    const onSubmit = handleSubmit(data => signUp(data));
+    const onSubmit: SubmitHandler<{ email: string; password: string }> = (data) => signUp(data);
 
     return (
         <React.Fragment>
             <DialogContent>
-                <form id='sign-up-form' onSubmit={onSubmit}>
-                    <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
-                        <Controller
-                            name='email'
-                            control={control}
-                            rules={{ required: 'Cannot be empty' }}
-                            render={({ field }) => (
-                                <SimpleInput 
-                                    label='Email' 
-                                    helperText={errors.email?.message}
-                                    error={!!errors.email}
-                                    {...field}
-                                />
-                            )}
-                        />
-                        <Controller
-                            name='password'
-                            control={control}
-                            rules={{ required: 'Cannot be empty' }}
-                            render={({ field }) => (
-                                <InputHidden 
-                                    label='Password' 
-                                    helperText={errors.password?.message}
-                                    error={!!errors.password}
-                                    {...field}
-                                />
-                            )}
-                        />
-                    </Stack>
-                </form>
+                <Stack spacing={2} width={{ xs: 'auto', sm: '40ch' }}>
+                    <Controller
+                        name='email'
+                        control={control}
+                        rules={{ required: 'Cannot be empty' }}
+                        render={({ field }) => (
+                            <SimpleInput
+                                label='Email'
+                                helperText={errors.email?.message}
+                                error={!!errors.email}
+                                {...field}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name='password'
+                        control={control}
+                        rules={{ required: 'Cannot be empty' }}
+                        render={({ field }) => (
+                            <InputHidden
+                                label='Password'
+                                helperText={errors.password?.message}
+                                error={!!errors.password}
+                                {...field}
+                            />
+                        )}
+                    />
+                </Stack>
             </DialogContent>
             <DialogActions>
-                <LoadingButton type='submit' form='sign-up-form' loading={isLoading}>
+                <LoadingButton onClick={handleSubmit(onSubmit)} loading={isLoading}>
                     Sign Up
                 </LoadingButton>
             </DialogActions>

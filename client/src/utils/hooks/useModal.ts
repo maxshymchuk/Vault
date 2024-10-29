@@ -21,7 +21,7 @@ export default function useModal<T = unknown>(options?: Props<T>): ReturnType<T>
         content: _options.content
     });
 
-    const show = useCallback((content: T) => {
+    const show = useCallback((content?: T) => {
         if (content === undefined) {
             setState(state => ({ ...state, show: true }));
         } else {
