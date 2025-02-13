@@ -10,6 +10,6 @@
         "prod": "concurrently \"npm run server:prod\" \"npm run client:build\""
     },
     "devDependencies": {
-        "concurrently": "^9.0.1"
+        "concurrently": "^9.1.2"
     }
 }

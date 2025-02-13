@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { AppBar } from './containers/app-bar';
-import { AuthDialog } from './containers/auth-dialog';
-import { AppList } from './containers/app-list';
+import { AppBar, AuthDialog, AppList } from './containers';
 import { useSelector } from 'react-redux';
 import { RootState, setAuthenticated, useAppDispatch } from './redux';
 import { getLocalStorage } from './utils';

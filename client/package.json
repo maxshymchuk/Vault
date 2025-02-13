@@ -3,24 +3,25 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
+        "type-check": "tsc",
         "dev": "vite",
         "build": "vite build --emptyOutDir"
     },
     "devDependencies": {
-        "typescript": "^5.3.3",
-        "vite": "^5.4.9"
+        "@types/react-dom": "^19.0.3",
+        "typescript": "^5.7.3",
+        "vite": "^6.1.0"
     },
     "dependencies": {
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
-        "@mui/icons-material": "^5.15.0",
-        "@mui/lab": "^5.0.0-alpha.156",
-        "@mui/material": "^5.15.0",
-        "@reduxjs/toolkit": "^2.3.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-hook-form": "^7.49.3",
-        "react-redux": "^9.0.4",
-        "zod": "^3.22.4"
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
+        "@mui/icons-material": "^6.4.4",
+        "@mui/material": "^6.4.4",
+        "@reduxjs/toolkit": "^2.5.1",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-hook-form": "^7.54.2",
+        "react-redux": "^9.2.0",
+        "zod": "^3.24.2"
     }
 }

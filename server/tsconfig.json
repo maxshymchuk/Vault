@@ -13,5 +13,12 @@
         "esModuleInterop": true,
         "useUnknownInCatchVariables": false,
         "types": ["./typing"]
-    }
+    },
+    "ts-node": {
+        "experimentalSpecifierResolution": "node",
+        "experimentalResolver": true,
+        "transpileOnly": false,
+        "esm": true,
+        "logError": true,
+    },
 }
