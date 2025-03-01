@@ -3,7 +3,6 @@ import { useCallback, useMemo, useState } from 'react';
 type Props<T> = {
     show?: boolean;
     content?: T;
-    [key: string]: unknown;
 }
 
 type ReturnType<T> = {

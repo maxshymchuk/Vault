@@ -1,12 +1,9 @@
 import React from 'react';
 import { Collapse, Divider, List, Paper } from '@mui/material';
-import { RootState, selectRecords, useAppDispatch } from '../../redux';
-import { useSelector } from 'react-redux';
 import Selector from './components/Selector';
 import Loader from './components/Loader';
 import Empty from './components/Empty';
-import { useModal } from '../../hooks';
-import { getFilteredRecords } from '../../redux/slices/records.slice';
+import { useModal, useRecords } from '../../hooks';
 import { Record, SimpleQuestion } from '../../components';
 import { RecordPreview } from '../RecordPreview';
 import { RecordUpdate } from '../RecordUpdate';
@@ -15,15 +12,12 @@ import { useGetQuery } from '../../services/records.service';
 import { isVaultRecord } from '../../utils';
 
 export default function AppList() {
-    const dispatch = useAppDispatch();
-
     const { isFetching } = useGetQuery(undefined, { refetchOnMountOrArgChange: true });
 
     const [updateRecord, { isLoading: isUpdatePending }] = useUpdateMutation();
     const [removeRecord, { isLoading: isRemovePending }] = useRemoveMutation();
 
-    const filteredRecords = useSelector(getFilteredRecords);
-    const { selectedRecords } = useSelector((state: RootState) => state.records);
+    const { selectedRecords, filteredRecords, selectRecords } = useRecords();
 
     const notificationModal = useModal<VaultRecord>();
     const previewRecordModal = useModal<VaultRecord>();
@@ -38,11 +32,11 @@ export default function AppList() {
     };
 
     const handleRecordsSelectAll = () => {
-        dispatch(selectRecords(selectedRecords.length === filteredRecords.length ? [] : filteredRecords));
+        selectRecords(selectedRecords.length === filteredRecords.length ? [] : filteredRecords);
     };
 
     const handleRecordSelect = (record: VaultRecord) => {
-        dispatch(selectRecords(record));
+        selectRecords(record);
     };
 
     const handleRecordUpdate = (record: VaultRecord | VaultRecordPending) => {

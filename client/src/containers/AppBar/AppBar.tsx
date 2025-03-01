@@ -5,19 +5,14 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Offset } from './styled';
 import { Search } from '../../components';
 import { AppMenu } from '../AppMenu';
-import { useSelector } from 'react-redux';
-import { setSearch, useAppDispatch } from '../../redux';
 import { RecordUpdate } from '../RecordUpdate';
-import { useModal } from '../../hooks';
-import type { RootState } from '../../redux';
+import { useModal, useRecords } from '../../hooks';
 import { useAddMutation } from '../../services/record.service';
 
 export default function AppBar() {
-    const dispatch = useAppDispatch();
-
     const [addRecord, { isLoading }] = useAddMutation()
 
-    const { search } = useSelector((state: RootState) => state.records);
+    const { search, updateSearch } = useRecords();
 
     const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
@@ -29,10 +24,6 @@ export default function AppBar() {
 
     const closeMenu = () => {
         setAnchor(null);
-    };
-
-    const updateSearch = (value: string) => {
-        dispatch(setSearch(value));
     };
 
     const handleRecordAdd = (record: VaultRecordPending) => {

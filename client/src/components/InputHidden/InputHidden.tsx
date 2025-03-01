@@ -12,7 +12,7 @@ const InputHidden = ({ withViewToggle = true, ...props }: Props) => {
     return (
         <SimpleInput
             type={visible ? 'text' : 'password'}
-            autoComplete='current-password'
+            autoComplete='new-password'
             slotProps={{
                 input: withViewToggle ? {
                     endAdornment: (
