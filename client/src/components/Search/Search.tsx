@@ -19,8 +19,12 @@ const Search = memo(({ value, onChange }: Props) => {
             <StyledInputBase
                 value={value}
                 onChange={handleChange}
-                placeholder='Search…'
-                startAdornment={<StyledIconWrapper><SearchIcon /></StyledIconWrapper>}
+                placeholder="Search…"
+                startAdornment={
+                    <StyledIconWrapper>
+                        <SearchIcon />
+                    </StyledIconWrapper>
+                }
                 endAdornment={<ClearButton isVisible={Boolean(value)} onClick={handleClear} />}
             />
         </StyledRoot>

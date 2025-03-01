@@ -8,8 +8,8 @@ import type { MenuButton } from '../types';
 
 type Props = {
     record: VaultRecord;
-    buttons?: Array<MenuButton>
-}
+    buttons?: Array<MenuButton>;
+};
 
 const Controls = ({ record, buttons }: Props) => {
     const copy = useCopy(record.hidden);
@@ -35,7 +35,7 @@ const Controls = ({ record, buttons }: Props) => {
                 <MoreVertIcon />
             </IconButton>
             <Menu anchorEl={anchor} open={Boolean(anchor)} onClick={closeMenu} onClose={closeMenu}>
-                {buttons?.map(button => (
+                {buttons?.map((button) => (
                     <MenuItem key={button.title} onClick={() => button.action(record)}>
                         {button.title}
                     </MenuItem>
