@@ -1,0 +1,3 @@
+tsc -p client --noEmit
+tsc -p server --noEmit
+npx lint-staged

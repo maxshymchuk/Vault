@@ -8,7 +8,7 @@ export default function useCopy(text?: string): () => void {
         if (!text) return;
         navigator.clipboard.writeText(text).then(
             () => dispatch(notify({ type: 'info', message: 'Copied!' })),
-            () => dispatch(notify({ type: 'error', title: 'Error', message: 'Can\'t copy :(' }))
+            () => dispatch(notify({ type: 'error', title: 'Error', message: "Can't copy :(" })),
         );
     }, [dispatch, text]);
 }

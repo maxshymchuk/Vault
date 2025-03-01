@@ -42,12 +42,16 @@ export default function AppList() {
     const handleRecordUpdate = (record: VaultRecord | VaultRecordPending) => {
         if (!updateRecordModal.content) return;
         if (!isVaultRecord(record)) return;
-        updateRecord(record).unwrap().then(() => updateRecordModal.hide());
+        updateRecord(record)
+            .unwrap()
+            .then(() => updateRecordModal.hide());
     };
 
     const handleRecordRemove = () => {
         if (!notificationModal.content) return;
-        removeRecord(notificationModal.content.id).unwrap().then(() => notificationModal.hide());
+        removeRecord(notificationModal.content.id)
+            .unwrap()
+            .then(() => notificationModal.hide());
     };
 
     if (isFetching) return <Loader isLoading={isFetching} />;
@@ -58,7 +62,7 @@ export default function AppList() {
         <Paper square>
             <SimpleQuestion
                 open={notificationModal.isOpen}
-                title='Delete record'
+                title="Delete record"
                 isLoading={isRemovePending}
                 onResolve={handleRecordRemove}
                 onReject={notificationModal.hide}
@@ -92,9 +96,9 @@ export default function AppList() {
                             record={record}
                             buttons={[
                                 { title: 'Edit', action: handleRecordModal },
-                                { title: 'Delete', action: handleNotificationModal }
+                                { title: 'Delete', action: handleNotificationModal },
                             ]}
-                            isSelected={selectedRecords.map(r => r.id).includes(record.id)}
+                            isSelected={selectedRecords.map((r) => r.id).includes(record.id)}
                             onSelect={handleRecordSelect}
                             onClick={previewRecordModal.show}
                         />

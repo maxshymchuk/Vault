@@ -8,6 +8,6 @@ dbs.prepare()
             console.log(`Server is running on port ${config.port}`);
         });
     })
-    .catch(error => {
+    .catch((error) => {
         console.error('Failed to connect to databases:', error);
     });

@@ -9,15 +9,15 @@ export const recordsApi = createApi({
         prepareHeaders: prepareHeadersWithToken,
         // credentials: 'include',
     }),
-    endpoints: builder => ({
+    endpoints: (builder) => ({
         get: builder.query<{ records: Array<VaultRecord> }, void>({
             query: () => '',
             onQueryStarted: async (_, { queryFulfilled, dispatch }) => {
                 await syncRecords(queryFulfilled, dispatch);
-            }
-        })
+            },
+        }),
     }),
-})
+});
 
 export const { useGetQuery } = recordsApi;
 

@@ -3,7 +3,7 @@ import * as authService from '../services/auth.service';
 
 const check = async (req: Request, res: Response) => {
     res.status(200).json('Authenticated');
-}
+};
 
 const signIn = async (req: Request, res: Response) => {
     try {

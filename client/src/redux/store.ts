@@ -18,15 +18,11 @@ const store = configureStore({
         [recordApi.reducerPath]: recordApi.reducer,
         [recordsApi.reducerPath]: recordsApi.reducer,
     },
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(
-        errorMiddleware,
-        authApi.middleware, 
-        recordApi.middleware,
-        recordsApi.middleware
-    ),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(errorMiddleware, authApi.middleware, recordApi.middleware, recordsApi.middleware),
 });
 
-setupListeners(store.dispatch)
+setupListeners(store.dispatch);
 
 export default store;
 export const useAppDispatch: () => AppDispatch = useDispatch;

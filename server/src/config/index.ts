@@ -26,7 +26,7 @@ function getEnvValue<T = number | string | boolean>(key: string, defaultValue: T
 const config = {
     port: getEnvValue('PORT', 3000),
     allowedOrigins: getEnvValue('ALLOWED_ORIGINS', '*'),
-    apiDelay: getEnvValue('API_DELAY', 0)
+    apiDelay: getEnvValue('API_DELAY', 0),
 } as const;
 
 export { config };

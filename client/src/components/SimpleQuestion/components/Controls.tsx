@@ -5,7 +5,7 @@ export type Props = {
     isLoading?: boolean;
     onResolve?: () => void;
     onReject?: () => void;
-}
+};
 
 const Controls = memo(({ isLoading, onResolve, onReject }: Props) => (
     <React.Fragment>
@@ -14,11 +14,7 @@ const Controls = memo(({ isLoading, onResolve, onReject }: Props) => (
                 Yes
             </Button>
         )}
-        {onReject && (
-            <Button onClick={onReject}>
-                No
-            </Button>
-        )}
+        {onReject && <Button onClick={onReject}>No</Button>}
     </React.Fragment>
 ));
 

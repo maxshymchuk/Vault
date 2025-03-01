@@ -4,7 +4,7 @@ import { ListItemBaseProps } from '@mui/material';
 
 const ListItemWithDivider = memo((props: ListItemBaseProps) => (
     <React.Fragment>
-        <Divider component='li' sx={{ opacity: 0.6 }} />
+        <Divider component="li" sx={{ opacity: 0.6 }} />
         <ListItem disableGutters {...props} />
     </React.Fragment>
 ));

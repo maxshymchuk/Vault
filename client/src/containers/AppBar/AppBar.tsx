@@ -10,7 +10,7 @@ import { useModal, useRecords } from '../../hooks';
 import { useAddMutation } from '../../services/record.service';
 
 export default function AppBar() {
-    const [addRecord, { isLoading }] = useAddMutation()
+    const [addRecord, { isLoading }] = useAddMutation();
 
     const { search, updateSearch } = useRecords();
 
@@ -27,7 +27,9 @@ export default function AppBar() {
     };
 
     const handleRecordAdd = (record: VaultRecordPending) => {
-        addRecord(record).unwrap().then(() => updateRecordModal.hide());
+        addRecord(record)
+            .unwrap()
+            .then(() => updateRecordModal.hide());
     };
 
     return (
@@ -38,20 +40,20 @@ export default function AppBar() {
                 onUpdate={handleRecordAdd}
                 onClose={updateRecordModal.hide}
             />
-            <MUIAppBar position='fixed' color='primary' sx={{ top: 'auto', bottom: 0 }}>
+            <MUIAppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
                 <Toolbar>
                     <AppMenu anchor={anchor} onClose={closeMenu} />
                     <Search value={search} onChange={updateSearch} />
                     <Box sx={{ flexGrow: 1 }} />
-                    <IconButton color='inherit' onClick={updateRecordModal.show}>
+                    <IconButton color="inherit" onClick={updateRecordModal.show}>
                         <AddIcon />
                     </IconButton>
-                    <IconButton color='inherit' onClick={openMenu}>
+                    <IconButton color="inherit" onClick={openMenu}>
                         <MoreIcon />
                     </IconButton>
                 </Toolbar>
             </MUIAppBar>
-            <Offset/>
+            <Offset />
         </React.Fragment>
     );
 }

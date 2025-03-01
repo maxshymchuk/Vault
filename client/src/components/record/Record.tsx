@@ -24,7 +24,7 @@ const Record = ({ record, buttons, isSelected, onSelect, onClick }: Props) => {
             <ListItemButton>
                 <ListItemIcon>
                     <Checkbox
-                        edge='start'
+                        edge="start"
                         checked={isSelected}
                         onChange={handleSelect}
                         onClick={stopPropagation}

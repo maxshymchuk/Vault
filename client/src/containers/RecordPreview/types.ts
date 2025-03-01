@@ -4,6 +4,6 @@ type Props = {
     open: boolean;
     record?: VaultRecord;
     onClose: (e: MouseEvent) => void;
-}
+};
 
 export type { Props };

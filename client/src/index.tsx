@@ -13,5 +13,5 @@ root.render(
         <CssBaseline />
         <AppNotifications />
         <App />
-    </Provider>
+    </Provider>,
 );

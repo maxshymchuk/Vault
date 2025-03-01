@@ -6,5 +6,5 @@ export const StyledStack = styled(Stack)(({ theme }) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     top: theme.spacing(1),
-    zIndex: theme.zIndex.snackbar
+    zIndex: theme.zIndex.snackbar,
 }));

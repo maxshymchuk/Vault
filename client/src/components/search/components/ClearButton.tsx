@@ -10,7 +10,7 @@ type Props = {
 
 const StyledClearIconWrapper = styled(StyledIconWrapper)({
     pointerEvents: 'auto',
-    cursor: 'pointer'
+    cursor: 'pointer',
 });
 
 const ClearButton = memo(({ isVisible, onClick }: Props) => (

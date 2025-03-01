@@ -27,7 +27,7 @@ const remove = async (req: Request, res: Response) => {
     try {
         const records = await recordsService.remove({ token: getToken(req), id: req.body.id });
         res.status(200).json({ records });
-    } catch (error) {   
+    } catch (error) {
         res.status(403).json(error.message);
     }
 };

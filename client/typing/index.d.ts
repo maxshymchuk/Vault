@@ -4,8 +4,8 @@ type ValueOf<T> = T[keyof T];
 
 type LocalStorage = Partial<{
     token: string;
-}>
+}>;
 
-type UniqueItem<T = {}> = T & {
+type UniqueItem<T = object> = T & {
     id: string;
-}
+};

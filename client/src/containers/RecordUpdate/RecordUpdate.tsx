@@ -8,48 +8,54 @@ import type { Props } from './types';
 export default function RecordUpdate({ open, record: externalRecord, isLoading = false, onUpdate, onClose }: Props) {
     const isUpdate = !!externalRecord;
 
-    const { control, handleSubmit, reset, formState: { errors } } = useForm<VaultRecordPending>({
+    const {
+        control,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm<VaultRecordPending>({
         defaultValues: {
             title: '',
             description: '',
             hidden: '',
         },
-        values: isUpdate ? {
-            title: externalRecord.title,
-            description: externalRecord.description ?? '',
-            hidden: externalRecord.hidden ?? '',
-        } : undefined
+        values: isUpdate
+            ? {
+                  title: externalRecord.title,
+                  description: externalRecord.description ?? '',
+                  hidden: externalRecord.hidden ?? '',
+              }
+            : undefined,
     });
 
     useEffect(() => {
         if (open) reset();
     }, [open, reset]);
 
-    const onSubmit: SubmitHandler<VaultRecordPending> = (data) => onUpdate(isUpdate ? ({ ...externalRecord, ...data }) : data);
+    const onSubmit: SubmitHandler<VaultRecordPending> = (data) =>
+        onUpdate(isUpdate ? { ...externalRecord, ...data } : data);
 
     return (
         <SimpleDialog
             open={open}
             title={isUpdate ? 'Update record' : 'New record'}
-            actions={(
+            actions={
                 <React.Fragment>
                     <Button onClick={handleSubmit(onSubmit)} loading={isLoading}>
                         {isUpdate ? 'Update' : 'Add'}
                     </Button>
-                    <Button onClick={onClose}>
-                        Close
-                    </Button>
+                    <Button onClick={onClose}>Close</Button>
                 </React.Fragment>
-            )}
+            }
         >
             <Stack spacing={0} useFlexGap>
                 <Controller
-                    name='title'
+                    name="title"
                     control={control}
                     rules={{ required: 'Cannot be empty' }}
                     render={({ field }) => (
                         <SimpleInput
-                            label='Title'
+                            label="Title"
                             helperText={errors.title?.message}
                             error={!!errors.title}
                             {...field}
@@ -57,18 +63,14 @@ export default function RecordUpdate({ open, record: externalRecord, isLoading =
                     )}
                 />
                 <Controller
-                    name='description'
+                    name="description"
                     control={control}
-                    render={({ field }) => (
-                        <SimpleInput label='Description' {...field} />
-                    )}
+                    render={({ field }) => <SimpleInput label="Description" {...field} />}
                 />
                 <Controller
-                    name='hidden'
+                    name="hidden"
                     control={control}
-                    render={({ field }) => (
-                        <InputHidden label='Hidden' {...field} />
-                    )}
+                    render={({ field }) => <InputHidden label="Hidden" {...field} />}
                 />
             </Stack>
         </SimpleDialog>

@@ -6,7 +6,7 @@ function jsonStringify(obj: unknown) {
 
 const base64 = {
     decode: (s: string) => Buffer.from(s, 'base64'),
-    encode: (b: string) => Buffer.from(b).toString('base64')
+    encode: (b: string) => Buffer.from(b).toString('base64'),
 };
 
 function promisify<T>(func: () => T, delay = config.apiDelay): Promise<T> {
@@ -15,9 +15,9 @@ function promisify<T>(func: () => T, delay = config.apiDelay): Promise<T> {
             try {
                 resolve(func());
             } catch (error) {
-                reject(error)
+                reject(error);
             }
-        }, delay)
+        }, delay);
     });
 }
 

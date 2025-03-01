@@ -2,22 +2,22 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { setLocalStorage } from '../../utils';
 
 type AuthState = {
-  isAuthenticated: boolean;
+    isAuthenticated: boolean;
 };
 
 const initialState: AuthState = {
-  isAuthenticated: false,
+    isAuthenticated: false,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setAuthenticated(state, { payload }: PayloadAction<string | undefined>) {
-      setLocalStorage('token', payload);
-      state.isAuthenticated = !!payload;
+    name: 'auth',
+    initialState,
+    reducers: {
+        setAuthenticated(state, { payload }: PayloadAction<string | undefined>) {
+            setLocalStorage('token', payload);
+            state.isAuthenticated = !!payload;
+        },
     },
-  },
 });
 
 const { setAuthenticated } = authSlice.actions;

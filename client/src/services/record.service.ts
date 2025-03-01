@@ -6,36 +6,36 @@ export const recordApi = createApi({
     reducerPath: 'recordApi',
     baseQuery: fetchBaseQuery({
         baseUrl: `${config.baseUrl}/api/record/`,
-        prepareHeaders: prepareHeadersWithToken
+        prepareHeaders: prepareHeadersWithToken,
         // credentials: 'include'
-     }),
-    endpoints: builder => ({
+    }),
+    endpoints: (builder) => ({
         add: builder.mutation<{ records: Array<VaultRecord> }, VaultRecordPending>({
-            query: record => ({
+            query: (record) => ({
                 url: 'add',
                 method: 'POST',
-                body: record
+                body: record,
             }),
-            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch)
+            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch),
         }),
         remove: builder.mutation<{ records: Array<VaultRecord> }, string>({
-            query: id => ({
+            query: (id) => ({
                 url: 'remove',
                 method: 'DELETE',
                 body: { id },
             }),
-            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch)
+            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch),
         }),
         update: builder.mutation<{ records: Array<VaultRecord> }, VaultRecord>({
-            query: record => ({
+            query: (record) => ({
                 url: 'update',
                 method: 'PUT',
-                body: record
+                body: record,
             }),
-            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch)
+            onQueryStarted: async (_, { queryFulfilled, dispatch }) => await syncRecords(queryFulfilled, dispatch),
         }),
     }),
-})
+});
 
 export const { useAddMutation, useRemoveMutation, useUpdateMutation } = recordApi;
 

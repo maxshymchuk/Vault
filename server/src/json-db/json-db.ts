@@ -1,21 +1,21 @@
 import { createDatabaseFile, updateDatabaseFile } from './utils';
 
-type Props<T> = {
+type Props = {
     name: string;
     path?: string;
+};
+
+type Item<T = { [key: string]: unknown }> = T & { id: string };
+
+function isItem(obj: unknown): obj is Item {
+    return !!(obj as { id: string })?.id;
 }
 
-type Item<T = { [key: string]: unknown }> = T & { id: string; }
-
-function isItem(obj: any): obj is Item {
-    return !!obj.id;
-}
-
-function isArray<T>(obj: any): obj is Array<T> {
+function isArray<T>(obj: unknown): obj is Array<T> {
     return Array.isArray(obj);
 }
 
-function isObject<T>(obj: any): obj is T {
+function isObject<T>(obj: unknown): obj is T {
     return obj !== null && typeof obj === 'object' && !isArray(obj);
 }
 
@@ -43,7 +43,7 @@ class JsonDB<R, T = R> {
         return this._path;
     }
 
-    constructor({ name, path = 'databases' }: Props<T>) {
+    constructor({ name, path = 'databases' }: Props) {
         this._name = name;
         this._path = path;
         this._filePath = `${this._path}/${this._name}.json`;
@@ -121,7 +121,7 @@ class JsonDB<R, T = R> {
     public async remove<K extends keyof T>(key: K): Promise<JsonDB<R, T>>;
     public async remove<K extends keyof T>(keyOrId: K | string): Promise<JsonDB<R, T>> {
         if (isArray<Item>(this._current)) {
-            const index = this._current.findIndex(item => item.id === keyOrId);
+            const index = this._current.findIndex((item) => item.id === keyOrId);
             if (index !== -1) this._current.splice(index, 1);
         } else if (typeof keyOrId === 'string' && isObject(this._current)) {
             delete (this._current as Record<string, unknown>)[keyOrId]; // Record<string, any>
@@ -147,7 +147,7 @@ class JsonDB<R, T = R> {
     public async update<K extends keyof T>(key: K, value: T[K]): Promise<JsonDB<R, T>>;
     public async update<K extends keyof T>(keyOrId: K | string, value: T[K]): Promise<JsonDB<R, T>> {
         if (isArray<Item>(this._current)) {
-            const item = this._current.find(item => item.id === keyOrId);
+            const item = this._current.find((item) => item.id === keyOrId);
             if (item) Object.assign(item, value);
         } else if (typeof keyOrId === 'string' && isObject(this._current)) {
             if (keyOrId in (this._current as Record<string, unknown>)) {

@@ -1,6 +1,17 @@
 {
     "name": "vault",
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "prettier --write",
+            "eslint --fix"
+        ],
+        "*.{json}": "prettier --write"
+    },
     "scripts": {
+        "prepare": "husky",
+        "type-check": "tsc",
+        "prettify": "prettier --write .",
+        "lint": "eslint --fix .",
         "init": "npm i && concurrently \"cd client && npm i\" \"cd server && npm i\"",
         "client:dev": "cd client && npm run dev",
         "client:build": "cd client && npm run build",
@@ -10,6 +21,15 @@
         "prod": "concurrently \"npm run server:prod\" \"npm run client:build\""
     },
     "devDependencies": {
-        "concurrently": "^9.1.2"
+        "@eslint/js": "^9.21.0",
+        "concurrently": "^9.1.2",
+        "eslint": "^9.21.0",
+        "eslint-config-prettier": "^10.0.2",
+        "globals": "^16.0.0",
+        "husky": "^9.1.7",
+        "jiti": "^2.4.2",
+        "lint-staged": "^15.4.3",
+        "prettier": "^3.5.2",
+        "typescript-eslint": "^8.25.0"
     }
 }

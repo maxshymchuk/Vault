@@ -14,9 +14,9 @@ export default function AuthDialog() {
     return (
         <Dialog open={true}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={selectedTab} onChange={onTabChange} variant='fullWidth'>
-                    <Tab label='Sign In' />
-                    <Tab label='Sign Up' />
+                <Tabs value={selectedTab} onChange={onTabChange} variant="fullWidth">
+                    <Tab label="Sign In" />
+                    <Tab label="Sign Up" />
                 </Tabs>
             </Box>
             <TabPanel index={0} value={selectedTab}>

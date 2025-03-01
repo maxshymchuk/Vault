@@ -1,7 +1,7 @@
 type Creds = {
     email: string;
     password: string;
-}
+};
 
 type VaultUser = {
     id: string;
@@ -11,7 +11,7 @@ type VaultUser = {
     lastLoginAt?: number;
     token?: string;
     tokenExpiration?: number;
-}
+};
 
 type VaultRecord = {
     id: string;
@@ -20,4 +20,4 @@ type VaultRecord = {
     hidden?: string;
     createdAt: number;
     updatedAt: number;
-}
+};

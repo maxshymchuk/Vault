@@ -14,12 +14,8 @@ const AppNotifications = () => {
 
     return (
         <StyledStack spacing={1}>
-            {stack.map(notification => (
-                <Notification
-                    key={notification.id}
-                    notification={notification}
-                    onClose={closeNotificationById}
-                />
+            {stack.map((notification) => (
+                <Notification key={notification.id} notification={notification} onClose={closeNotificationById} />
             ))}
         </StyledStack>
     );

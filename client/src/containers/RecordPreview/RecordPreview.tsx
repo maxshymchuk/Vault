@@ -18,12 +18,12 @@ const RecordPreview = memo(({ open, record, onClose }: Props) => {
             <List disablePadding>
                 {record.title && (
                     <ListItem disableGutters>
-                        <ListItemText primary='Title' secondary={record.title} />
+                        <ListItemText primary="Title" secondary={record.title} />
                     </ListItem>
                 )}
                 {record.description && (
                     <ListItemWithDivider>
-                        <ListItemText primary='Description' secondary={record.description} />
+                        <ListItemText primary="Description" secondary={record.description} />
                     </ListItemWithDivider>
                 )}
             </List>

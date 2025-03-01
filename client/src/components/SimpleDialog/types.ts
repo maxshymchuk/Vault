@@ -8,6 +8,6 @@ type Props = DialogProps & {
     titleProps?: DialogTitleProps;
     contentProps?: DialogContentProps;
     actionsProps?: DialogActionsProps;
-}
+};
 
 export type { Props };

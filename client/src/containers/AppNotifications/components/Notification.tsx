@@ -6,7 +6,7 @@ type Props = {
     notification: NotificationType;
     timeout?: number;
     onClose: (id: number) => void;
-}
+};
 
 export default function Notification({ notification, timeout = 200, onClose }: Props) {
     const [isOpen, setOpen] = useState(true);
@@ -22,7 +22,7 @@ export default function Notification({ notification, timeout = 200, onClose }: P
 
     return (
         <Grow in={isOpen} timeout={timeout} onExited={closeNotification}>
-            <Alert severity={notification.type} variant='filled' onClose={closeNotification}>
+            <Alert severity={notification.type} variant="filled" onClose={closeNotification}>
                 {notification.title && <AlertTitle>{notification.title}</AlertTitle>}
                 {notification.message}
             </Alert>

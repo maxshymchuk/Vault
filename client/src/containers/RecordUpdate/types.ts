@@ -6,6 +6,6 @@ type Props = {
     isLoading?: boolean;
     onUpdate: (record: VaultRecord | VaultRecordPending) => void;
     onClose: (e: MouseEvent) => void;
-}
+};
 
 export type { Props };

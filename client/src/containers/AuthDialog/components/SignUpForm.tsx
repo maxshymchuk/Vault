@@ -5,13 +5,17 @@ import { useSignUpMutation } from '../../../services/auth.service';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 export default function SignUpForm() {
-    const [signUp, { isLoading }] = useSignUpMutation()
+    const [signUp, { isLoading }] = useSignUpMutation();
 
-    const { control, handleSubmit, formState: { errors } } = useForm<{ email: string; password: string }>({
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<{ email: string; password: string }>({
         defaultValues: {
             email: '',
             password: '',
-        }
+        },
     });
 
     const onSubmit: SubmitHandler<{ email: string; password: string }> = (data) => signUp(data);
@@ -19,16 +23,19 @@ export default function SignUpForm() {
     return (
         <Fragment>
             <DialogContent>
-                <Stack spacing={2} sx={{
-                    width: { xs: 'auto', sm: '40ch' }
-                }}>
+                <Stack
+                    spacing={2}
+                    sx={{
+                        width: { xs: 'auto', sm: '40ch' },
+                    }}
+                >
                     <Controller
-                        name='email'
+                        name="email"
                         control={control}
                         rules={{ required: 'Cannot be empty' }}
                         render={({ field }) => (
                             <SimpleInput
-                                label='Email'
+                                label="Email"
                                 helperText={errors.email?.message}
                                 error={!!errors.email}
                                 {...field}
@@ -36,12 +43,12 @@ export default function SignUpForm() {
                         )}
                     />
                     <Controller
-                        name='password'
+                        name="password"
                         control={control}
                         rules={{ required: 'Cannot be empty' }}
                         render={({ field }) => (
                             <InputHidden
-                                label='Password'
+                                label="Password"
                                 helperText={errors.password?.message}
                                 error={!!errors.password}
                                 {...field}
